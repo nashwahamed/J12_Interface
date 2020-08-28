@@ -3,29 +3,29 @@ SamrtHomeMaster.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000003ca  00000000  00000000  00000074  2**1
+  0 .text         000003b8  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000002c  00800060  000003ca  0000043e  2**0
+  1 .data         0000002c  00800060  000003b8  0000042c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000046a  2**0
+  2 .comment      00000030  00000000  00000000  00000458  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000049c  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000488  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000f8  00000000  00000000  000004d8  2**0
+  4 .debug_aranges 000000f8  00000000  00000000  000004c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000e03  00000000  00000000  000005d0  2**0
+  5 .debug_info   00000ddb  00000000  00000000  000005bc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000088b  00000000  00000000  000013d3  2**0
+  6 .debug_abbrev 0000088b  00000000  00000000  00001397  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000737  00000000  00000000  00001c5e  2**0
+  7 .debug_line   0000072b  00000000  00000000  00001c22  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000190  00000000  00000000  00002398  2**2
+  8 .debug_frame  00000190  00000000  00000000  00002350  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000004e4  00000000  00000000  00002528  2**0
+  9 .debug_str    000004e4  00000000  00000000  000024e0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000004a5  00000000  00000000  00002a0c  2**0
+ 10 .debug_loc    0000048e  00000000  00000000  000029c4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000000b8  00000000  00000000  00002eb1  2**0
+ 11 .debug_ranges 000000b8  00000000  00000000  00002e52  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ea ec       	ldi	r30, 0xCA	; 202
+  66:	e8 eb       	ldi	r30, 0xB8	; 184
   68:	f3 e0       	ldi	r31, 0x03	; 3
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -74,7 +74,7 @@ Disassembly of section .text:
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
   76:	0e 94 57 01 	call	0x2ae	; 0x2ae <main>
-  7a:	0c 94 e3 01 	jmp	0x3c6	; 0x3c6 <_exit>
+  7a:	0c 94 da 01 	jmp	0x3b4	; 0x3b4 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -396,7 +396,7 @@ void DIO_TogglePin(uint8 port,uint8 pin){
 int main(void)
 {
 	UART_Init();
- 2ae:	0e 94 b2 01 	call	0x364	; 0x364 <UART_Init>
+ 2ae:	0e 94 a9 01 	call	0x352	; 0x352 <UART_Init>
     uint8 tx_data=0, rx_data=0;
 	DIO_SetPinDir(DIO_PORTC,DIO_PIN2,DIO_PIN_OUTPUT);
  2b2:	41 e0       	ldi	r20, 0x01	; 1
@@ -409,9 +409,9 @@ int main(void)
  2c0:	82 e0       	ldi	r24, 0x02	; 2
  2c2:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
 	SPI_Master_Init();
- 2c6:	0e 94 90 01 	call	0x320	; 0x320 <SPI_Master_Init>
+ 2c6:	0e 94 87 01 	call	0x30e	; 0x30e <SPI_Master_Init>
 	SPI_Master_InitTrans();
- 2ca:	0e 94 a7 01 	call	0x34e	; 0x34e <SPI_Master_InitTrans>
+ 2ca:	0e 94 9e 01 	call	0x33c	; 0x33c <SPI_Master_InitTrans>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -419,207 +419,195 @@ int main(void)
 
 	__builtin_avr_delay_cycles(__ticks_dc);
  2ce:	2f ef       	ldi	r18, 0xFF	; 255
- 2d0:	83 ed       	ldi	r24, 0xD3	; 211
- 2d2:	90 e3       	ldi	r25, 0x30	; 48
+ 2d0:	89 e6       	ldi	r24, 0x69	; 105
+ 2d2:	98 e1       	ldi	r25, 0x18	; 24
  2d4:	21 50       	subi	r18, 0x01	; 1
  2d6:	80 40       	sbci	r24, 0x00	; 0
  2d8:	90 40       	sbci	r25, 0x00	; 0
  2da:	e1 f7       	brne	.-8      	; 0x2d4 <main+0x26>
  2dc:	00 c0       	rjmp	.+0      	; 0x2de <main+0x30>
  2de:	00 00       	nop
-	_delay_ms(1000);
+	_delay_ms(500);
     while (1) 
     {
 		UART_SendString("Press l to On/Off Led or b to On/Off Buzzer");
  2e0:	80 e6       	ldi	r24, 0x60	; 96
  2e2:	90 e0       	ldi	r25, 0x00	; 0
- 2e4:	0e 94 cd 01 	call	0x39a	; 0x39a <UART_SendString>
+ 2e4:	0e 94 c4 01 	call	0x388	; 0x388 <UART_SendString>
 		tx_data=UART_ReceiveByte();
- 2e8:	0e 94 c9 01 	call	0x392	; 0x392 <UART_ReceiveByte>
- 2ec:	c8 2f       	mov	r28, r24
+ 2e8:	0e 94 c0 01 	call	0x380	; 0x380 <UART_ReceiveByte>
 		rx_data=SPI_TranSiver(tx_data);
- 2ee:	0e 94 ad 01 	call	0x35a	; 0x35a <SPI_TranSiver>
-		if(tx_data=='l'){
- 2f2:	cc 36       	cpi	r28, 0x6C	; 108
- 2f4:	29 f4       	brne	.+10     	; 0x300 <main+0x52>
+ 2ec:	0e 94 a4 01 	call	0x348	; 0x348 <SPI_TranSiver>
+		if(rx_data==2){
+ 2f0:	82 30       	cpi	r24, 0x02	; 2
+ 2f2:	19 f4       	brne	.+6      	; 0x2fa <main+0x4c>
 			DIO_TogglePin(DIO_PORTC,DIO_PIN2);
- 2f6:	62 e0       	ldi	r22, 0x02	; 2
- 2f8:	82 e0       	ldi	r24, 0x02	; 2
- 2fa:	0e 94 23 01 	call	0x246	; 0x246 <DIO_TogglePin>
- 2fe:	06 c0       	rjmp	.+12     	; 0x30c <main+0x5e>
-			tx_data=0;
-		}
-		if(tx_data=='b'){
- 300:	c2 36       	cpi	r28, 0x62	; 98
- 302:	21 f4       	brne	.+8      	; 0x30c <main+0x5e>
-			DIO_TogglePin(DIO_PORTC,DIO_PIN3);
- 304:	63 e0       	ldi	r22, 0x03	; 3
- 306:	82 e0       	ldi	r24, 0x02	; 2
- 308:	0e 94 23 01 	call	0x246	; 0x246 <DIO_TogglePin>
- 30c:	2f ef       	ldi	r18, 0xFF	; 255
- 30e:	83 ed       	ldi	r24, 0xD3	; 211
- 310:	90 e3       	ldi	r25, 0x30	; 48
- 312:	21 50       	subi	r18, 0x01	; 1
- 314:	80 40       	sbci	r24, 0x00	; 0
- 316:	90 40       	sbci	r25, 0x00	; 0
- 318:	e1 f7       	brne	.-8      	; 0x312 <main+0x64>
- 31a:	00 c0       	rjmp	.+0      	; 0x31c <main+0x6e>
- 31c:	00 00       	nop
- 31e:	e0 cf       	rjmp	.-64     	; 0x2e0 <main+0x32>
+ 2f4:	62 e0       	ldi	r22, 0x02	; 2
+ 2f6:	0e 94 23 01 	call	0x246	; 0x246 <DIO_TogglePin>
+ 2fa:	2f ef       	ldi	r18, 0xFF	; 255
+ 2fc:	89 e6       	ldi	r24, 0x69	; 105
+ 2fe:	98 e1       	ldi	r25, 0x18	; 24
+ 300:	21 50       	subi	r18, 0x01	; 1
+ 302:	80 40       	sbci	r24, 0x00	; 0
+ 304:	90 40       	sbci	r25, 0x00	; 0
+ 306:	e1 f7       	brne	.-8      	; 0x300 <main+0x52>
+ 308:	00 c0       	rjmp	.+0      	; 0x30a <main+0x5c>
+ 30a:	00 00       	nop
+ 30c:	e9 cf       	rjmp	.-46     	; 0x2e0 <main+0x32>
 
-00000320 <SPI_Master_Init>:
+0000030e <SPI_Master_Init>:
  void SPI_Master_InitTrans(void){
  DIO_WritePin(DIO_PORTB,DIO_PIN4,DIO_PIN_LOW);
  }
  //terminate transimition
  void SPI_Master_TerTrans(void){
   DIO_WritePin(DIO_PORTB,DIO_PIN4,DIO_PIN_HIGH);
- 320:	41 e0       	ldi	r20, 0x01	; 1
- 322:	64 e0       	ldi	r22, 0x04	; 4
- 324:	81 e0       	ldi	r24, 0x01	; 1
- 326:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 32a:	41 e0       	ldi	r20, 0x01	; 1
- 32c:	65 e0       	ldi	r22, 0x05	; 5
- 32e:	81 e0       	ldi	r24, 0x01	; 1
- 330:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 334:	40 e0       	ldi	r20, 0x00	; 0
- 336:	66 e0       	ldi	r22, 0x06	; 6
- 338:	81 e0       	ldi	r24, 0x01	; 1
- 33a:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 33e:	41 e0       	ldi	r20, 0x01	; 1
- 340:	67 e0       	ldi	r22, 0x07	; 7
- 342:	81 e0       	ldi	r24, 0x01	; 1
- 344:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 348:	83 e5       	ldi	r24, 0x53	; 83
- 34a:	8d b9       	out	0x0d, r24	; 13
- 34c:	08 95       	ret
+ 30e:	41 e0       	ldi	r20, 0x01	; 1
+ 310:	64 e0       	ldi	r22, 0x04	; 4
+ 312:	81 e0       	ldi	r24, 0x01	; 1
+ 314:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 318:	41 e0       	ldi	r20, 0x01	; 1
+ 31a:	65 e0       	ldi	r22, 0x05	; 5
+ 31c:	81 e0       	ldi	r24, 0x01	; 1
+ 31e:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 322:	40 e0       	ldi	r20, 0x00	; 0
+ 324:	66 e0       	ldi	r22, 0x06	; 6
+ 326:	81 e0       	ldi	r24, 0x01	; 1
+ 328:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 32c:	41 e0       	ldi	r20, 0x01	; 1
+ 32e:	67 e0       	ldi	r22, 0x07	; 7
+ 330:	81 e0       	ldi	r24, 0x01	; 1
+ 332:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 336:	83 e5       	ldi	r24, 0x53	; 83
+ 338:	8d b9       	out	0x0d, r24	; 13
+ 33a:	08 95       	ret
 
-0000034e <SPI_Master_InitTrans>:
- 34e:	40 e0       	ldi	r20, 0x00	; 0
- 350:	64 e0       	ldi	r22, 0x04	; 4
- 352:	81 e0       	ldi	r24, 0x01	; 1
- 354:	0e 94 b2 00 	call	0x164	; 0x164 <DIO_WritePin>
- 358:	08 95       	ret
+0000033c <SPI_Master_InitTrans>:
+ 33c:	40 e0       	ldi	r20, 0x00	; 0
+ 33e:	64 e0       	ldi	r22, 0x04	; 4
+ 340:	81 e0       	ldi	r24, 0x01	; 1
+ 342:	0e 94 b2 00 	call	0x164	; 0x164 <DIO_WritePin>
+ 346:	08 95       	ret
 
-0000035a <SPI_TranSiver>:
+00000348 <SPI_TranSiver>:
  }
  //transmite and receive
  uint8 SPI_TranSiver(uint8 trans_data){
  uint8 rec_data=0;
  SPI ->SPDR=trans_data;//data need to be send
- 35a:	8f b9       	out	0x0f, r24	; 15
+ 348:	8f b9       	out	0x0f, r24	; 15
 
  while(GET_BIT(SPI->SPSR,7)==0);//once 1 means transmite done
- 35c:	77 9b       	sbis	0x0e, 7	; 14
- 35e:	fe cf       	rjmp	.-4      	; 0x35c <SPI_TranSiver+0x2>
+ 34a:	77 9b       	sbis	0x0e, 7	; 14
+ 34c:	fe cf       	rjmp	.-4      	; 0x34a <SPI_TranSiver+0x2>
 
  rec_data=SPI->SPDR;
- 360:	8f b1       	in	r24, 0x0f	; 15
+ 34e:	8f b1       	in	r24, 0x0f	; 15
  return rec_data;
- 362:	08 95       	ret
+ 350:	08 95       	ret
 
-00000364 <UART_Init>:
+00000352 <UART_Init>:
  #include "UART.h"
 
  void UART_Init(void){
  uint32 BR_Value=0;
 
  DIO_SetPinDir(DIO_PORTD,DIO_PIN0,DIO_PIN_INPUT);
- 364:	40 e0       	ldi	r20, 0x00	; 0
- 366:	60 e0       	ldi	r22, 0x00	; 0
- 368:	83 e0       	ldi	r24, 0x03	; 3
- 36a:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 352:	40 e0       	ldi	r20, 0x00	; 0
+ 354:	60 e0       	ldi	r22, 0x00	; 0
+ 356:	83 e0       	ldi	r24, 0x03	; 3
+ 358:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
  DIO_SetPinDir(DIO_PORTD,DIO_PIN1,DIO_PIN_OUTPUT);
- 36e:	41 e0       	ldi	r20, 0x01	; 1
- 370:	61 e0       	ldi	r22, 0x01	; 1
- 372:	83 e0       	ldi	r24, 0x03	; 3
- 374:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 35c:	41 e0       	ldi	r20, 0x01	; 1
+ 35e:	61 e0       	ldi	r22, 0x01	; 1
+ 360:	83 e0       	ldi	r24, 0x03	; 3
+ 362:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
 
  UCSRB |= 0x18;//no interrup enabled only trX Rrx
- 378:	8a b1       	in	r24, 0x0a	; 10
- 37a:	88 61       	ori	r24, 0x18	; 24
- 37c:	8a b9       	out	0x0a, r24	; 10
+ 366:	8a b1       	in	r24, 0x0a	; 10
+ 368:	88 61       	ori	r24, 0x18	; 24
+ 36a:	8a b9       	out	0x0a, r24	; 10
 
  UCSRC |= 0x86 ;//8 bit use as ucsr
- 37e:	80 b5       	in	r24, 0x20	; 32
- 380:	86 68       	ori	r24, 0x86	; 134
- 382:	80 bd       	out	0x20, r24	; 32
+ 36c:	80 b5       	in	r24, 0x20	; 32
+ 36e:	86 68       	ori	r24, 0x86	; 134
+ 370:	80 bd       	out	0x20, r24	; 32
 
  //equation boadrate Fosc/(BR*16)-1 =((16000000)/(9600 * 16))-1;
 
  BR_Value=((160000)/(96 * 16))-1;
  UBRRL = BR_Value;
- 384:	87 e6       	ldi	r24, 0x67	; 103
- 386:	89 b9       	out	0x09, r24	; 9
- 388:	08 95       	ret
+ 372:	87 e6       	ldi	r24, 0x67	; 103
+ 374:	89 b9       	out	0x09, r24	; 9
+ 376:	08 95       	ret
 
-0000038a <UART_SendByte>:
+00000378 <UART_SendByte>:
 
  }
  void UART_SendByte(uint8 data){
  //polling on the flag
  while(GET_BIT(UCSRA,5)==0);
- 38a:	5d 9b       	sbis	0x0b, 5	; 11
- 38c:	fe cf       	rjmp	.-4      	; 0x38a <UART_SendByte>
+ 378:	5d 9b       	sbis	0x0b, 5	; 11
+ 37a:	fe cf       	rjmp	.-4      	; 0x378 <UART_SendByte>
 
  UDR =data;
- 38e:	8c b9       	out	0x0c, r24	; 12
- 390:	08 95       	ret
+ 37c:	8c b9       	out	0x0c, r24	; 12
+ 37e:	08 95       	ret
 
-00000392 <UART_ReceiveByte>:
+00000380 <UART_ReceiveByte>:
  }
  uint8 UART_ReceiveByte(void){
 	uint8 data=0;
 	while(GET_BIT(UCSRA,7)==0);
- 392:	5f 9b       	sbis	0x0b, 7	; 11
- 394:	fe cf       	rjmp	.-4      	; 0x392 <UART_ReceiveByte>
+ 380:	5f 9b       	sbis	0x0b, 7	; 11
+ 382:	fe cf       	rjmp	.-4      	; 0x380 <UART_ReceiveByte>
 	data=UDR;
- 396:	8c b1       	in	r24, 0x0c	; 12
+ 384:	8c b1       	in	r24, 0x0c	; 12
 	return data;
  }
- 398:	08 95       	ret
+ 386:	08 95       	ret
 
-0000039a <UART_SendString>:
+00000388 <UART_SendString>:
 
  void UART_SendString(uint8* str){
- 39a:	0f 93       	push	r16
- 39c:	1f 93       	push	r17
- 39e:	cf 93       	push	r28
- 3a0:	fc 01       	movw	r30, r24
+ 388:	0f 93       	push	r16
+ 38a:	1f 93       	push	r17
+ 38c:	cf 93       	push	r28
+ 38e:	fc 01       	movw	r30, r24
 	uint8 i =0;
 	while(str[i] != '\0'){
- 3a2:	80 81       	ld	r24, Z
- 3a4:	88 23       	and	r24, r24
- 3a6:	59 f0       	breq	.+22     	; 0x3be <UART_SendString+0x24>
- 3a8:	8f 01       	movw	r16, r30
- 3aa:	c0 e0       	ldi	r28, 0x00	; 0
+ 390:	80 81       	ld	r24, Z
+ 392:	88 23       	and	r24, r24
+ 394:	59 f0       	breq	.+22     	; 0x3ac <UART_SendString+0x24>
+ 396:	8f 01       	movw	r16, r30
+ 398:	c0 e0       	ldi	r28, 0x00	; 0
 		UART_SendByte(str[i]);
- 3ac:	0e 94 c5 01 	call	0x38a	; 0x38a <UART_SendByte>
+ 39a:	0e 94 bc 01 	call	0x378	; 0x378 <UART_SendByte>
 		i++;
- 3b0:	cf 5f       	subi	r28, 0xFF	; 255
+ 39e:	cf 5f       	subi	r28, 0xFF	; 255
 	return data;
  }
 
  void UART_SendString(uint8* str){
 	uint8 i =0;
 	while(str[i] != '\0'){
- 3b2:	f8 01       	movw	r30, r16
- 3b4:	ec 0f       	add	r30, r28
- 3b6:	f1 1d       	adc	r31, r1
- 3b8:	80 81       	ld	r24, Z
- 3ba:	81 11       	cpse	r24, r1
- 3bc:	f7 cf       	rjmp	.-18     	; 0x3ac <UART_SendString+0x12>
+ 3a0:	f8 01       	movw	r30, r16
+ 3a2:	ec 0f       	add	r30, r28
+ 3a4:	f1 1d       	adc	r31, r1
+ 3a6:	80 81       	ld	r24, Z
+ 3a8:	81 11       	cpse	r24, r1
+ 3aa:	f7 cf       	rjmp	.-18     	; 0x39a <UART_SendString+0x12>
 		UART_SendByte(str[i]);
 		i++;
 	}
  }
- 3be:	cf 91       	pop	r28
- 3c0:	1f 91       	pop	r17
- 3c2:	0f 91       	pop	r16
- 3c4:	08 95       	ret
+ 3ac:	cf 91       	pop	r28
+ 3ae:	1f 91       	pop	r17
+ 3b0:	0f 91       	pop	r16
+ 3b2:	08 95       	ret
 
-000003c6 <_exit>:
- 3c6:	f8 94       	cli
+000003b4 <_exit>:
+ 3b4:	f8 94       	cli
 
-000003c8 <__stop_program>:
- 3c8:	ff cf       	rjmp	.-2      	; 0x3c8 <__stop_program>
+000003b6 <__stop_program>:
+ 3b6:	ff cf       	rjmp	.-2      	; 0x3b6 <__stop_program>

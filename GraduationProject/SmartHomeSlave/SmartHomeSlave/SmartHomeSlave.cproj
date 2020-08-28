@@ -126,6 +126,12 @@
     <Compile Include="BIT_Math.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Buzzer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Buzzer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="DCMotor.c">
       <SubType>compile</SubType>
     </Compile>

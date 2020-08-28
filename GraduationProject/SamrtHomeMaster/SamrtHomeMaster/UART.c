@@ -18,7 +18,7 @@
 
  //equation boadrate Fosc/(BR*16)-1 =((16000000)/(9600 * 16))-1;
 
- BR_Value=((160000)/(96 * 16))-1;
+ BR_Value=((40000)/(96 * 8))-1;//((160000)/(96 * 16))-1;//103.16
  UBRRL = BR_Value;
 
  }
@@ -42,4 +42,6 @@
 		i++;
 	}
  }
- uint8 UART_ReceiveString(void){}
+ uint8 UART_ReceiveString(void){
+ return 0;
+ }

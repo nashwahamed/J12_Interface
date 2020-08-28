@@ -3,21 +3,21 @@ SamrtHomeMaster.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000374  00000000  00000000  00000074  2**1
+  0 .text         000002d6  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000002c  00800060  00000374  000003e8  2**0
+  1 .data         00000044  00800060  000002d6  0000034a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000414  2**0
+  2 .comment      00000030  00000000  00000000  0000038e  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000444  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000003c0  2**2
                   CONTENTS, READONLY
-  4 .debug_info   000004e6  00000000  00000000  00000480  2**0
+  4 .debug_info   000004e6  00000000  00000000  000003fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_abbrev 000004a3  00000000  00000000  00000966  2**0
+  5 .debug_abbrev 000004a3  00000000  00000000  000008e2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_line   00000115  00000000  00000000  00000e09  2**0
+  6 .debug_line   00000115  00000000  00000000  00000d85  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    00000196  00000000  00000000  00000f1e  2**0
+  7 .debug_str    00000196  00000000  00000000  00000e9a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -57,16 +57,16 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e4 e7       	ldi	r30, 0x74	; 116
-  68:	f3 e0       	ldi	r31, 0x03	; 3
+  66:	e6 ed       	ldi	r30, 0xD6	; 214
+  68:	f2 e0       	ldi	r31, 0x02	; 2
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	ac 38       	cpi	r26, 0x8C	; 140
+  70:	a4 3a       	cpi	r26, 0xA4	; 164
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
-  76:	0e 94 3b 01 	call	0x276	; 0x276 <main>
-  7a:	0c 94 b8 01 	jmp	0x370	; 0x370 <_exit>
+  76:	0e 94 0b 01 	call	0x216	; 0x216 <main>
+  7a:	0c 94 69 01 	jmp	0x2d2	; 0x2d2 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -277,182 +277,104 @@ Disassembly of section .text:
  212:	82 bb       	out	0x12, r24	; 18
  214:	08 95       	ret
 
-00000216 <DIO_TogglePin>:
- 216:	81 30       	cpi	r24, 0x01	; 1
- 218:	81 f0       	breq	.+32     	; 0x23a <DIO_TogglePin+0x24>
- 21a:	28 f0       	brcs	.+10     	; 0x226 <DIO_TogglePin+0x10>
- 21c:	82 30       	cpi	r24, 0x02	; 2
- 21e:	b9 f0       	breq	.+46     	; 0x24e <DIO_TogglePin+0x38>
- 220:	83 30       	cpi	r24, 0x03	; 3
- 222:	f9 f0       	breq	.+62     	; 0x262 <DIO_TogglePin+0x4c>
- 224:	08 95       	ret
- 226:	2b b3       	in	r18, 0x1b	; 27
- 228:	81 e0       	ldi	r24, 0x01	; 1
- 22a:	90 e0       	ldi	r25, 0x00	; 0
- 22c:	01 c0       	rjmp	.+2      	; 0x230 <DIO_TogglePin+0x1a>
- 22e:	88 0f       	add	r24, r24
- 230:	6a 95       	dec	r22
- 232:	ea f7       	brpl	.-6      	; 0x22e <DIO_TogglePin+0x18>
- 234:	82 27       	eor	r24, r18
- 236:	8b bb       	out	0x1b, r24	; 27
- 238:	08 95       	ret
- 23a:	28 b3       	in	r18, 0x18	; 24
- 23c:	81 e0       	ldi	r24, 0x01	; 1
- 23e:	90 e0       	ldi	r25, 0x00	; 0
- 240:	01 c0       	rjmp	.+2      	; 0x244 <DIO_TogglePin+0x2e>
- 242:	88 0f       	add	r24, r24
- 244:	6a 95       	dec	r22
- 246:	ea f7       	brpl	.-6      	; 0x242 <DIO_TogglePin+0x2c>
- 248:	82 27       	eor	r24, r18
- 24a:	88 bb       	out	0x18, r24	; 24
- 24c:	08 95       	ret
- 24e:	25 b3       	in	r18, 0x15	; 21
- 250:	81 e0       	ldi	r24, 0x01	; 1
- 252:	90 e0       	ldi	r25, 0x00	; 0
- 254:	01 c0       	rjmp	.+2      	; 0x258 <DIO_TogglePin+0x42>
- 256:	88 0f       	add	r24, r24
- 258:	6a 95       	dec	r22
- 25a:	ea f7       	brpl	.-6      	; 0x256 <DIO_TogglePin+0x40>
- 25c:	82 27       	eor	r24, r18
- 25e:	85 bb       	out	0x15, r24	; 21
+00000216 <main>:
+ 216:	0e 94 3b 01 	call	0x276	; 0x276 <UART_Init>
+ 21a:	0e 94 1a 01 	call	0x234	; 0x234 <SPI_Master_Init>
+ 21e:	0e 94 31 01 	call	0x262	; 0x262 <SPI_Master_InitTrans>
+ 222:	80 e6       	ldi	r24, 0x60	; 96
+ 224:	90 e0       	ldi	r25, 0x00	; 0
+ 226:	0e 94 56 01 	call	0x2ac	; 0x2ac <UART_SendString>
+ 22a:	0e 94 52 01 	call	0x2a4	; 0x2a4 <UART_ReceiveByte>
+ 22e:	0e 94 36 01 	call	0x26c	; 0x26c <SPI_TranSiver>
+ 232:	f7 cf       	rjmp	.-18     	; 0x222 <main+0xc>
+
+00000234 <SPI_Master_Init>:
+ 234:	41 e0       	ldi	r20, 0x01	; 1
+ 236:	64 e0       	ldi	r22, 0x04	; 4
+ 238:	81 e0       	ldi	r24, 0x01	; 1
+ 23a:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 23e:	41 e0       	ldi	r20, 0x01	; 1
+ 240:	65 e0       	ldi	r22, 0x05	; 5
+ 242:	81 e0       	ldi	r24, 0x01	; 1
+ 244:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 248:	40 e0       	ldi	r20, 0x00	; 0
+ 24a:	66 e0       	ldi	r22, 0x06	; 6
+ 24c:	81 e0       	ldi	r24, 0x01	; 1
+ 24e:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 252:	41 e0       	ldi	r20, 0x01	; 1
+ 254:	67 e0       	ldi	r22, 0x07	; 7
+ 256:	81 e0       	ldi	r24, 0x01	; 1
+ 258:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 25c:	83 e5       	ldi	r24, 0x53	; 83
+ 25e:	8d b9       	out	0x0d, r24	; 13
  260:	08 95       	ret
- 262:	22 b3       	in	r18, 0x12	; 18
- 264:	81 e0       	ldi	r24, 0x01	; 1
- 266:	90 e0       	ldi	r25, 0x00	; 0
- 268:	01 c0       	rjmp	.+2      	; 0x26c <DIO_TogglePin+0x56>
- 26a:	88 0f       	add	r24, r24
- 26c:	6a 95       	dec	r22
- 26e:	ea f7       	brpl	.-6      	; 0x26a <DIO_TogglePin+0x54>
- 270:	82 27       	eor	r24, r18
- 272:	82 bb       	out	0x12, r24	; 18
+
+00000262 <SPI_Master_InitTrans>:
+ 262:	40 e0       	ldi	r20, 0x00	; 0
+ 264:	64 e0       	ldi	r22, 0x04	; 4
+ 266:	81 e0       	ldi	r24, 0x01	; 1
+ 268:	0c 94 a6 00 	jmp	0x14c	; 0x14c <DIO_WritePin>
+
+0000026c <SPI_TranSiver>:
+ 26c:	8f b9       	out	0x0f, r24	; 15
+ 26e:	77 9b       	sbis	0x0e, 7	; 14
+ 270:	fe cf       	rjmp	.-4      	; 0x26e <SPI_TranSiver+0x2>
+ 272:	8f b1       	in	r24, 0x0f	; 15
  274:	08 95       	ret
 
-00000276 <main>:
- 276:	0e 94 8a 01 	call	0x314	; 0x314 <UART_Init>
- 27a:	41 e0       	ldi	r20, 0x01	; 1
- 27c:	62 e0       	ldi	r22, 0x02	; 2
- 27e:	82 e0       	ldi	r24, 0x02	; 2
- 280:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 284:	41 e0       	ldi	r20, 0x01	; 1
- 286:	63 e0       	ldi	r22, 0x03	; 3
- 288:	82 e0       	ldi	r24, 0x02	; 2
- 28a:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 28e:	0e 94 69 01 	call	0x2d2	; 0x2d2 <SPI_Master_Init>
- 292:	0e 94 80 01 	call	0x300	; 0x300 <SPI_Master_InitTrans>
- 296:	2f ef       	ldi	r18, 0xFF	; 255
- 298:	83 ed       	ldi	r24, 0xD3	; 211
- 29a:	90 e3       	ldi	r25, 0x30	; 48
- 29c:	21 50       	subi	r18, 0x01	; 1
- 29e:	80 40       	sbci	r24, 0x00	; 0
- 2a0:	90 40       	sbci	r25, 0x00	; 0
- 2a2:	e1 f7       	brne	.-8      	; 0x29c <main+0x26>
- 2a4:	00 c0       	rjmp	.+0      	; 0x2a6 <main+0x30>
- 2a6:	00 00       	nop
- 2a8:	80 e6       	ldi	r24, 0x60	; 96
- 2aa:	90 e0       	ldi	r25, 0x00	; 0
- 2ac:	0e 94 a5 01 	call	0x34a	; 0x34a <UART_SendString>
- 2b0:	0e 94 a1 01 	call	0x342	; 0x342 <UART_ReceiveByte>
- 2b4:	0e 94 85 01 	call	0x30a	; 0x30a <SPI_TranSiver>
- 2b8:	82 30       	cpi	r24, 0x02	; 2
- 2ba:	19 f4       	brne	.+6      	; 0x2c2 <main+0x4c>
- 2bc:	62 e0       	ldi	r22, 0x02	; 2
- 2be:	0e 94 0b 01 	call	0x216	; 0x216 <DIO_TogglePin>
- 2c2:	2f ef       	ldi	r18, 0xFF	; 255
- 2c4:	89 e6       	ldi	r24, 0x69	; 105
- 2c6:	98 e1       	ldi	r25, 0x18	; 24
- 2c8:	21 50       	subi	r18, 0x01	; 1
- 2ca:	80 40       	sbci	r24, 0x00	; 0
- 2cc:	90 40       	sbci	r25, 0x00	; 0
- 2ce:	e1 f7       	brne	.-8      	; 0x2c8 <main+0x52>
- 2d0:	e9 cf       	rjmp	.-46     	; 0x2a4 <main+0x2e>
+00000276 <UART_Init>:
+ 276:	40 e0       	ldi	r20, 0x00	; 0
+ 278:	60 e0       	ldi	r22, 0x00	; 0
+ 27a:	83 e0       	ldi	r24, 0x03	; 3
+ 27c:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 280:	41 e0       	ldi	r20, 0x01	; 1
+ 282:	61 e0       	ldi	r22, 0x01	; 1
+ 284:	83 e0       	ldi	r24, 0x03	; 3
+ 286:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 28a:	8a b1       	in	r24, 0x0a	; 10
+ 28c:	88 61       	ori	r24, 0x18	; 24
+ 28e:	8a b9       	out	0x0a, r24	; 10
+ 290:	80 b5       	in	r24, 0x20	; 32
+ 292:	86 68       	ori	r24, 0x86	; 134
+ 294:	80 bd       	out	0x20, r24	; 32
+ 296:	83 e3       	ldi	r24, 0x33	; 51
+ 298:	89 b9       	out	0x09, r24	; 9
+ 29a:	08 95       	ret
 
-000002d2 <SPI_Master_Init>:
- 2d2:	41 e0       	ldi	r20, 0x01	; 1
- 2d4:	64 e0       	ldi	r22, 0x04	; 4
- 2d6:	81 e0       	ldi	r24, 0x01	; 1
- 2d8:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 2dc:	41 e0       	ldi	r20, 0x01	; 1
- 2de:	65 e0       	ldi	r22, 0x05	; 5
- 2e0:	81 e0       	ldi	r24, 0x01	; 1
- 2e2:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 2e6:	40 e0       	ldi	r20, 0x00	; 0
- 2e8:	66 e0       	ldi	r22, 0x06	; 6
- 2ea:	81 e0       	ldi	r24, 0x01	; 1
- 2ec:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 2f0:	41 e0       	ldi	r20, 0x01	; 1
- 2f2:	67 e0       	ldi	r22, 0x07	; 7
- 2f4:	81 e0       	ldi	r24, 0x01	; 1
- 2f6:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 2fa:	83 e5       	ldi	r24, 0x53	; 83
- 2fc:	8d b9       	out	0x0d, r24	; 13
- 2fe:	08 95       	ret
+0000029c <UART_SendByte>:
+ 29c:	5d 9b       	sbis	0x0b, 5	; 11
+ 29e:	fe cf       	rjmp	.-4      	; 0x29c <UART_SendByte>
+ 2a0:	8c b9       	out	0x0c, r24	; 12
+ 2a2:	08 95       	ret
 
-00000300 <SPI_Master_InitTrans>:
- 300:	40 e0       	ldi	r20, 0x00	; 0
- 302:	64 e0       	ldi	r22, 0x04	; 4
- 304:	81 e0       	ldi	r24, 0x01	; 1
- 306:	0c 94 a6 00 	jmp	0x14c	; 0x14c <DIO_WritePin>
+000002a4 <UART_ReceiveByte>:
+ 2a4:	5f 9b       	sbis	0x0b, 7	; 11
+ 2a6:	fe cf       	rjmp	.-4      	; 0x2a4 <UART_ReceiveByte>
+ 2a8:	8c b1       	in	r24, 0x0c	; 12
+ 2aa:	08 95       	ret
 
-0000030a <SPI_TranSiver>:
- 30a:	8f b9       	out	0x0f, r24	; 15
- 30c:	77 9b       	sbis	0x0e, 7	; 14
- 30e:	fe cf       	rjmp	.-4      	; 0x30c <SPI_TranSiver+0x2>
- 310:	8f b1       	in	r24, 0x0f	; 15
- 312:	08 95       	ret
+000002ac <UART_SendString>:
+ 2ac:	0f 93       	push	r16
+ 2ae:	1f 93       	push	r17
+ 2b0:	cf 93       	push	r28
+ 2b2:	8c 01       	movw	r16, r24
+ 2b4:	c0 e0       	ldi	r28, 0x00	; 0
+ 2b6:	f8 01       	movw	r30, r16
+ 2b8:	ec 0f       	add	r30, r28
+ 2ba:	f1 1d       	adc	r31, r1
+ 2bc:	80 81       	ld	r24, Z
+ 2be:	88 23       	and	r24, r24
+ 2c0:	21 f0       	breq	.+8      	; 0x2ca <UART_SendString+0x1e>
+ 2c2:	0e 94 4e 01 	call	0x29c	; 0x29c <UART_SendByte>
+ 2c6:	cf 5f       	subi	r28, 0xFF	; 255
+ 2c8:	f6 cf       	rjmp	.-20     	; 0x2b6 <UART_SendString+0xa>
+ 2ca:	cf 91       	pop	r28
+ 2cc:	1f 91       	pop	r17
+ 2ce:	0f 91       	pop	r16
+ 2d0:	08 95       	ret
 
-00000314 <UART_Init>:
- 314:	40 e0       	ldi	r20, 0x00	; 0
- 316:	60 e0       	ldi	r22, 0x00	; 0
- 318:	83 e0       	ldi	r24, 0x03	; 3
- 31a:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 31e:	41 e0       	ldi	r20, 0x01	; 1
- 320:	61 e0       	ldi	r22, 0x01	; 1
- 322:	83 e0       	ldi	r24, 0x03	; 3
- 324:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 328:	8a b1       	in	r24, 0x0a	; 10
- 32a:	88 61       	ori	r24, 0x18	; 24
- 32c:	8a b9       	out	0x0a, r24	; 10
- 32e:	80 b5       	in	r24, 0x20	; 32
- 330:	86 68       	ori	r24, 0x86	; 134
- 332:	80 bd       	out	0x20, r24	; 32
- 334:	87 e6       	ldi	r24, 0x67	; 103
- 336:	89 b9       	out	0x09, r24	; 9
- 338:	08 95       	ret
+000002d2 <_exit>:
+ 2d2:	f8 94       	cli
 
-0000033a <UART_SendByte>:
- 33a:	5d 9b       	sbis	0x0b, 5	; 11
- 33c:	fe cf       	rjmp	.-4      	; 0x33a <UART_SendByte>
- 33e:	8c b9       	out	0x0c, r24	; 12
- 340:	08 95       	ret
-
-00000342 <UART_ReceiveByte>:
- 342:	5f 9b       	sbis	0x0b, 7	; 11
- 344:	fe cf       	rjmp	.-4      	; 0x342 <UART_ReceiveByte>
- 346:	8c b1       	in	r24, 0x0c	; 12
- 348:	08 95       	ret
-
-0000034a <UART_SendString>:
- 34a:	0f 93       	push	r16
- 34c:	1f 93       	push	r17
- 34e:	cf 93       	push	r28
- 350:	8c 01       	movw	r16, r24
- 352:	c0 e0       	ldi	r28, 0x00	; 0
- 354:	f8 01       	movw	r30, r16
- 356:	ec 0f       	add	r30, r28
- 358:	f1 1d       	adc	r31, r1
- 35a:	80 81       	ld	r24, Z
- 35c:	88 23       	and	r24, r24
- 35e:	21 f0       	breq	.+8      	; 0x368 <UART_SendString+0x1e>
- 360:	0e 94 9d 01 	call	0x33a	; 0x33a <UART_SendByte>
- 364:	cf 5f       	subi	r28, 0xFF	; 255
- 366:	f6 cf       	rjmp	.-20     	; 0x354 <UART_SendString+0xa>
- 368:	cf 91       	pop	r28
- 36a:	1f 91       	pop	r17
- 36c:	0f 91       	pop	r16
- 36e:	08 95       	ret
-
-00000370 <_exit>:
- 370:	f8 94       	cli
-
-00000372 <__stop_program>:
- 372:	ff cf       	rjmp	.-2      	; 0x372 <__stop_program>
+000002d4 <__stop_program>:
+ 2d4:	ff cf       	rjmp	.-2      	; 0x2d4 <__stop_program>

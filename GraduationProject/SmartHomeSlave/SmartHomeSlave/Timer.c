@@ -121,7 +121,7 @@ TCCR0 |= 0x05;
 
  //Fast PWM
  void PWM0_Init(){
- DDRB |=0x04;
+ DDRB |=0x08;//0x04;
  //initialize mode
  TCCR0 |=0x48;
 

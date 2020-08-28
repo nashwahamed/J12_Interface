@@ -15,20 +15,19 @@ Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
+ .text          0x00000000        0x0 Buzzer.o
+ .data          0x00000000        0x0 Buzzer.o
+ .bss           0x00000000        0x0 Buzzer.o
+ .text.Buzzer_Init
+                0x00000000        0xa Buzzer.o
+ .text.Buzzer_ring
+                0x00000000        0xa Buzzer.o
+ .text.Buzzer_Off
+                0x00000000        0xa Buzzer.o
+ .comment       0x00000000       0x31 Buzzer.o
  .text          0x00000000        0x0 DCMotor.o
  .data          0x00000000        0x0 DCMotor.o
  .bss           0x00000000        0x0 DCMotor.o
- .text.DCMotor_Init
-                0x00000000       0x22 DCMotor.o
- .text.DCMotor_SetSpeed
-                0x00000000       0x10 DCMotor.o
- .text.DCMotor_SetDir
-                0x00000000       0x2c DCMotor.o
- .text.DCMotor_Start
-                0x00000000        0x4 DCMotor.o
- .text.DCMotor_Stop
-                0x00000000       0x14 DCMotor.o
- .comment       0x00000000       0x31 DCMotor.o
  .text          0x00000000        0x0 DIO.o
  .data          0x00000000        0x0 DIO.o
  .bss           0x00000000        0x0 DIO.o
@@ -36,8 +35,6 @@ Discarded input sections
                 0x00000000       0x20 DIO.o
  .text.DIO_WritePort
                 0x00000000       0x1c DIO.o
- .text.DIO_WritePin
-                0x00000000       0xca DIO.o
  .text.DIO_ReadPort
                 0x00000000       0x24 DIO.o
  .text.DIO_ReadPin
@@ -50,11 +47,6 @@ Discarded input sections
  .text.LED0_ON  0x00000000        0xa LED.o
  .text.LED0_OFF
                 0x00000000        0xa LED.o
- .text.LED0_Init
-                0x00000000        0xa LED.o
- .text.LED0_Toggle
-                0x00000000        0x8 LED.o
- .comment       0x00000000       0x31 LED.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -90,20 +82,12 @@ Discarded input sections
                 0x00000000       0x4a Timer.o
  .text.Timer1_SetCallBack
                 0x00000000        0xa Timer.o
- .text.PWM0_Init
-                0x00000000       0x10 Timer.o
- .text.PWM0_Generate
-                0x00000000       0x14 Timer.o
- .text.PWM0_Start
-                0x00000000        0x8 Timer.o
  .bss.Num_Tick  0x00000000        0x2 Timer.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .text.libgcc.mul
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
- .text.libgcc.div
-                0x00000000       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .text.libgcc.prologue
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
@@ -193,6 +177,7 @@ user_signatures  0x00850000         0x00000400         rw !x
 Linker script and memory map
 
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
+LOAD Buzzer.o
 LOAD DCMotor.o
 LOAD DIO.o
 LOAD LED.o
@@ -308,7 +293,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x342
+.text           0x00000000      0x510
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -386,32 +371,68 @@ END GROUP
                 0x00000078                __vector_20
                 0x0000007c                . = ALIGN (0x2)
  *(.text.*)
+ .text.DCMotor_Init
+                0x0000007c       0x22 DCMotor.o
+                0x0000007c                DCMotor_Init
+ .text.DCMotor_SetSpeed
+                0x0000009e       0x10 DCMotor.o
+                0x0000009e                DCMotor_SetSpeed
+ .text.DCMotor_SetDir
+                0x000000ae       0x2c DCMotor.o
+                0x000000ae                DCMotor_SetDir
+ .text.DCMotor_Start
+                0x000000da        0x4 DCMotor.o
+                0x000000da                DCMotor_Start
+ .text.DCMotor_Stop
+                0x000000de       0x14 DCMotor.o
+                0x000000de                DCMotor_Stop
  .text.DIO_SetPinDir
-                0x0000007c       0xca DIO.o
-                0x0000007c                DIO_SetPinDir
+                0x000000f2       0xca DIO.o
+                0x000000f2                DIO_SetPinDir
+ .text.DIO_WritePin
+                0x000001bc       0xca DIO.o
+                0x000001bc                DIO_WritePin
  .text.DIO_TogglePin
-                0x00000146       0x60 DIO.o
-                0x00000146                DIO_TogglePin
+                0x00000286       0x60 DIO.o
+                0x00000286                DIO_TogglePin
+ .text.LED0_Init
+                0x000002e6        0xa LED.o
+                0x000002e6                LED0_Init
+ .text.LED0_Toggle
+                0x000002f0        0x8 LED.o
+                0x000002f0                LED0_Toggle
  .text.startup.main
-                0x000001a6       0x46 main.o
-                0x000001a6                main
+                0x000002f8       0x6e main.o
+                0x000002f8                main
  .text.SPI_Slave_Init
-                0x000001ec       0x2e SPI.o
-                0x000001ec                SPI_Slave_Init
+                0x00000366       0x2e SPI.o
+                0x00000366                SPI_Slave_Init
  .text.SPI_TranSiver
-                0x0000021a        0xa SPI.o
-                0x0000021a                SPI_TranSiver
+                0x00000394        0xa SPI.o
+                0x00000394                SPI_TranSiver
  .text.__vector_11
-                0x00000224       0x7c Timer.o
-                0x00000224                __vector_11
+                0x0000039e       0x7c Timer.o
+                0x0000039e                __vector_11
  .text.__vector_7
-                0x000002a0       0x9e Timer.o
-                0x000002a0                __vector_7
-                0x0000033e                . = ALIGN (0x2)
+                0x0000041a       0x9e Timer.o
+                0x0000041a                __vector_7
+ .text.PWM0_Init
+                0x000004b8       0x10 Timer.o
+                0x000004b8                PWM0_Init
+ .text.PWM0_Generate
+                0x000004c8       0x14 Timer.o
+                0x000004c8                PWM0_Generate
+ .text.PWM0_Start
+                0x000004dc        0x8 Timer.o
+                0x000004dc                PWM0_Start
+ .text.libgcc.div
+                0x000004e4       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x000004e4                __udivmodhi4
+                0x0000050c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000033e        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x0000033e                _exit
-                0x0000033e                exit
+ .fini9         0x0000050c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x0000050c                _exit
+                0x0000050c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -430,11 +451,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000033e        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000050c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000342                _etext = .
+                0x00000510                _etext = .
 
-.data           0x00800060        0x0 load address 0x00000342
+.data           0x00800060        0x0 load address 0x00000510
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -468,8 +489,8 @@ END GROUP
                 0x00800070                Num_OverFlow
  *(COMMON)
                 0x00800072                PROVIDE (__bss_end, .)
-                0x00000342                __data_load_start = LOADADDR (.data)
-                0x00000342                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000510                __data_load_start = LOADADDR (.data)
+                0x00000510                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800072        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -517,8 +538,10 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 DIO.o
+ .comment       0x00000000       0x30 DCMotor.o
                                  0x31 (size before relaxing)
+ .comment       0x00000030       0x31 DIO.o
+ .comment       0x00000030       0x31 LED.o
  .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x31 SPI.o
  .comment       0x00000030       0x31 Timer.o
